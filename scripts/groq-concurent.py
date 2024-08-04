@@ -1,12 +1,16 @@
 import time
 import threading
 import os
-import openai
 import csv
-from csv_plot import *
+from dotenv import load_dotenv
+from groq import Groq
 
-client = openai.Client(
-    base_url="http://127.0.0.1:4001/v1", api_key="EMPTY")
+# Load environment variables
+load_dotenv()
+GROQ_API_KEY = os.getenv("GROQ_KEY")
+
+# Initialize the Groq client once with the api_key
+client = Groq(api_key=GROQ_API_KEY)
 
 # Create a lock for synchronizing print statements and file writes
 write_lock = threading.Lock()
@@ -19,7 +23,7 @@ with open('results.csv', 'w', newline='') as file:
 def chat_completion_request_groq(messages, client, request_number):
     start_time = time.time()
     chat_response = client.chat.completions.create(
-        model="default",
+        model="llama-3.1-70b-versatile",
         messages=messages,
         max_tokens=500,
         temperature=0.01,
@@ -37,6 +41,7 @@ def chat_completion_request_groq(messages, client, request_number):
 
     # Extract the required values
     prompt_tokens = chat_response.usage.prompt_tokens if completion_text else 0
+    queue_time = chat_response.usage.queue_time if chat_response.usage.queue_time is not None else 0
     tokens_generated = chat_response.usage.completion_tokens if completion_text else 0
     tokens_per_second = tokens_generated / response_time if response_time > 0 else 0
 
@@ -45,6 +50,7 @@ def chat_completion_request_groq(messages, client, request_number):
         print("")
         print(f"---------- Request #{request_number} ----------")
         print(f"Total Time Taken: {response_time:.2f} seconds")
+        print(f"Queue ttime: {queue_time:.2f}")
         print(f"Prompt tokens: {prompt_tokens:.2f}")
         print(f"Tokens generated: {tokens_generated:.2f}")
         print(f"Tokens per second: {tokens_per_second:.2f}")

@@ -3,3 +3,4 @@ openai
 matplotlib
 pandas
 seaborn
+groq
