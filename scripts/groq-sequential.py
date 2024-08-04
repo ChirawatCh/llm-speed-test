@@ -18,7 +18,7 @@ write_lock = threading.Lock()
 # Open the CSV file and write the header
 with open('results.csv', 'w', newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(["Request Number", "Total Time Taken", "Prompt Tokens", "Tokens Generated", "Tokens per Second"])
+    writer.writerow(["Request Number", "Total Time Taken", "Queue Time", "Prompt Tokens", "Tokens Generated", "Tokens per Second"])
 
 def chat_completion_request_groq(messages, client, request_number):
     start_time = time.time()
@@ -50,7 +50,7 @@ def chat_completion_request_groq(messages, client, request_number):
         print("")
         print(f"---------- Request #{request_number} ----------")
         print(f"Total Time Taken: {response_time:.2f} seconds")
-        print(f"Queue ttime: {queue_time:.2f}")
+        print(f"Queue time: {queue_time:.2f} seconds")
         print(f"Prompt tokens: {prompt_tokens:.2f}")
         print(f"Tokens generated: {tokens_generated:.2f}")
         print(f"Tokens per second: {tokens_per_second:.2f}")
@@ -58,7 +58,7 @@ def chat_completion_request_groq(messages, client, request_number):
         # Write the results to the CSV file
         with open('results.csv', 'a', newline='') as file:
             writer = csv.writer(file)
-            writer.writerow([request_number, f"{response_time:.2f}", f"{prompt_tokens:.2f}", f"{tokens_generated:.2f}", f"{tokens_per_second:.2f}"])
+            writer.writerow([request_number, f"{response_time:.2f}", f"{queue_time:.2f}", f"{prompt_tokens:.2f}", f"{tokens_generated:.2f}", f"{tokens_per_second:.2f}"])
 
     return chat_response
 
@@ -68,7 +68,7 @@ def send_request_sequentially(num_requests):
             {"role": "user", "content": "Write a long essay on the topic of spring."}
         ]
         chat_completion_request_groq(messages, client, request_number)
-        time.sleep(2)  # Wait for 5 seconds before sending the next request
+        time.sleep(2)  # Wait for 2 seconds before sending the next request
 
 if __name__ == "__main__":
     num_requests = 16  # Specify the number of requests here
