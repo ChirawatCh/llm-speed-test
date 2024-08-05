@@ -11,11 +11,11 @@ client = openai.Client(
 write_lock = threading.Lock()
 
 # Open the CSV file and write the header
-with open('results.csv', 'w', newline='') as file:
+with open('csv-result/results.csv', 'w', newline='') as file:
     writer = csv.writer(file)
     writer.writerow(["Request Number", "Total Time Taken", "Prompt Tokens", "Tokens Generated", "Tokens per Second"])
 
-def chat_completion_request_groq(messages, client, request_number):
+def chat_completion_request(messages, client, request_number):
     start_time = time.time()
     chat_response = client.chat.completions.create(
         model="default",
@@ -49,7 +49,7 @@ def chat_completion_request_groq(messages, client, request_number):
         print(f"Tokens per second: {tokens_per_second:.2f}")
 
         # Write the results to the CSV file
-        with open('results.csv', 'a', newline='') as file:
+        with open('csv-result/results.csv', 'a', newline='') as file:
             writer = csv.writer(file)
             writer.writerow([request_number, f"{response_time:.2f}", f"{prompt_tokens:.2f}", f"{tokens_generated:.2f}", f"{tokens_per_second:.2f}"])
 
@@ -63,7 +63,7 @@ def send_request(request_number):
     messages = [
         {"role": "user", "content": "Write a long essay on the topic of spring."}
     ]
-    chat_completion_request_groq(messages, client, request_number)
+    chat_completion_request(messages, client, request_number)
     
 
 if __name__ == "__main__":

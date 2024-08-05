@@ -60,7 +60,13 @@ def plot_tokens_per_second(csv_path: str, title: str, ylimit: int = None):
 if __name__ == "__main__":
     # Example usage
     y_axis_limit = 50
-    # plot_tokens_per_second("results.csv", "Llama-3-70B-Instruct-FP8-(Sequential)-(H100-PCie-2-GPUs)")
-    # plot_tokens_per_second("results.csv", "Llama-3-70B-Instruct-FP8-(Concurent)-(H100-PCie-2-GPUs)")
-    # plot_tokens_per_second("results.csv", "Llama-3.1-70b-versatile-(Concurent)-(Groq)", 250)
-    plot_tokens_per_second("results.csv", "Llama-3.1-70b-versatile-(Sequential)-(Groq)", 250)
+    # plot_tokens_per_second("csv-result/results.csv", "Llama-3-70B-Instruct-FP8-(Sequential)-(H100-PCie-2-GPUs)")
+    # plot_tokens_per_second("csv-result/results.csv", "Llama-3-70B-Instruct-FP8-(Concurent)-(H100-PCie-2-GPUs)")
+    # plot_tokens_per_second("csv-result/results.csv", "Llama-3.1-70b-versatile-(Concurent)-(Groq)", 250)
+    # plot_tokens_per_second("csv-result/results.csv", "Llama-3.1-70b-versatile-(Sequential)-(Groq)", 250)
+    # plot_tokens_per_second("csv-result/Llama-3-8B-Instruct-FP8-(Concurent)-(H100-PCie-1-GPUs-25%).csv", "Llama-3-8B-Instruct-FP8-(Concurent)-(H100-PCie-1-GPUs-25%)")
+    # plot_tokens_per_second("csv-result/Llama-3-8B-Instruct-FP8-(Sequential)-(H100-PCie-1-GPUs-25%).csv", "Llama-3-8B-Instruct-FP8-(Sequential)-(H100-PCie-1-GPUs-25%)")
+    # plot_tokens_per_second("csv-result/Llama-3-70B-Instruct-FP8-(Sequential)-(H100-PCie-2-GPUs-45%).csv", "Llama-3-70B-Instruct-FP8-(Sequential)-(H100-PCie-2-GPUs-45%)")
+    # plot_tokens_per_second("csv-result/Llama-3-70B-Instruct-FP8-(Concurent)-(H100-PCie-2-GPUs-45%).csv", "Llama-3-70B-Instruct-FP8-(Concurent)-(H100-PCie-2-GPUs-45%)")
+    # plot_tokens_per_second("csv-result/Llama-3-70B-Instruct-FP8-(Concurent)-(H100-PCie-1-GPUs-90%).csv", "Llama-3-70B-Instruct-FP8-(Concurent)-(H100-PCie-1-GPUs-90%)")
+    plot_tokens_per_second("csv-result/Llama-3-70B-Instruct-FP8-(Sequential)-(H100-PCie-1-GPUs-90%).csv", "Llama-3-70B-Instruct-FP8-(Sequential)-(H100-PCie-1-GPUs-90%)")
