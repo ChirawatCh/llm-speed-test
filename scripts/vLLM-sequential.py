@@ -7,9 +7,6 @@ import csv
 client = openai.Client(
     base_url="http://127.0.0.1:4001/v1", api_key="EMPTY")
 
-# client = openai.Client(
-#     base_url="http://127.0.0.1:4003/v1", api_key="EMPTY")
-
 # Create a lock for synchronizing print statements and file writes
 write_lock = threading.Lock()
 
@@ -21,7 +18,7 @@ with open('csv-result/results.csv', 'w', newline='') as file:
 def chat_completion_request(messages, client, request_number):
     start_time = time.time()
     chat_response = client.chat.completions.create(
-        model="default",
+        model="meta-llama/Meta-Llama-3.1-8B-Instruct",
         messages=messages,
         max_tokens=500,
         temperature=0.01,

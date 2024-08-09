@@ -7,9 +7,6 @@ import csv
 client = openai.Client(
     base_url="http://127.0.0.1:4001/v1", api_key="EMPTY")
 
-# client = openai.Client(
-#     base_url="http://127.0.0.1:4003/v1", api_key="EMPTY")
-
 # Create a lock for synchronizing print statements and file writes
 write_lock = threading.Lock()
 
@@ -21,7 +18,7 @@ with open('csv-result/results.csv', 'w', newline='') as file:
 def chat_completion_request(messages, client, request_number):
     start_time = time.time()
     chat_response = client.chat.completions.create(
-        model="default",
+        model="meta-llama/Meta-Llama-3.1-8B-Instruct",
         messages=messages,
         max_tokens=500,
         temperature=0.01,
@@ -58,14 +55,18 @@ def chat_completion_request(messages, client, request_number):
 
     return chat_response
 
-def send_request_sequentially(num_requests):
-    for request_number in range(1, num_requests + 1):
-        messages = [
-            {"role": "user", "content": "Write a long essay on the topic of spring."}
-        ]
-        chat_completion_request(messages, client, request_number)
-        time.sleep(2)  # Wait for 5 seconds before sending the next request
+def send_request_every_x_seconds(num_requests):
+    for i in range(num_requests):
+        threading.Timer(0.06125 * i, send_request, args=(i + 1,)).start()
+
+def send_request(request_number):
+    messages = [
+        {"role": "user", "content": "Write a long essay on the topic of spring."}
+    ]
+    chat_completion_request(messages, client, request_number)
+    
 
 if __name__ == "__main__":
-    num_requests = 16  # Specify the number of requests here
-    send_request_sequentially(num_requests)
+    num_requests = 64  # Specify the number of requests here
+    send_request_every_x_seconds(num_requests)
+    

@@ -7,6 +7,9 @@ import csv
 client = openai.Client(
     base_url="http://127.0.0.1:4001/v1", api_key="EMPTY")
 
+# client = openai.Client(
+#     base_url="http://127.0.0.1:4003/v1", api_key="EMPTY")
+
 # Create a lock for synchronizing print statements and file writes
 write_lock = threading.Lock()
 
