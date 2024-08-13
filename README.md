@@ -10,17 +10,19 @@ This project contains a set of Python scripts designed to test and compare the p
 📦scripts
  ┣ 📜graph-plot.py
  ┣ 📜sglang-concurent.py
- ┗ 📜sglang-sequential.py
+ ┣ 📜sglang-sequential.py
+ ┣ 📜vLLM-concurent.py
+ ┗ 📜vLLM-sequential.py
 ```
 
 ### Files
 
-1. **sglang-sequential.py**:
+1. **sglang or vLLM-sequential.py**:
     - Sends requests to the LLM inference engine sequentially.
     - Records the time taken for each request, the number of prompt tokens, generated tokens, and tokens per second.
     - Outputs results to `results.csv`.
 
-2. **sglang-concurent.py**:
+2. **sglang or vLLM-concurent.py**:
     - Sends requests to the LLM inference engine concurrently.
     - Uses threading to manage multiple simultaneous requests.
     - Records the same performance metrics as the sequential script.
