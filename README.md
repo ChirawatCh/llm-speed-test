@@ -157,6 +157,9 @@ def send_request_every_x_seconds(num_requests):
 </p>
 <p align="center"><em>SGLang maintains a steady performance, consistently processing around 75-78 tokens per second, showcasing its robust handling of high-concurrency workloads. In contrast, vLLM starts at 37 tokens per second but gradually decreases to around 35 tokens per second, highlighting a significant performance gap. This suggests that SGLang delivers nearly double the throughput compared to vLLM under concurrent request conditions, making it a more efficient choice for scenarios requiring high concurrency.</em></p>
 
+## Conclusions
+
+Overall, SGLang consistently outperforms vLLM in both sequential and concurrent request scenarios. The differences are especially stark under concurrent loads, where SGLang’s ability to maintain stable throughput highlights its superior scalability and robustness. These findings suggest that SGLang is the better choice for applications requiring high concurrency and efficient processing of large volumes of requests.
 
 ## Contact
 
