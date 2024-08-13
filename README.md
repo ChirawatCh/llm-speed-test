@@ -102,15 +102,59 @@ def send_request_every_x_seconds(num_requests):
         threading.Timer(0.06125 * i, send_request, args=(i + 1,)).start()
 ```
 
-## Sample Graph Results
-**Groq - sequential request**
-![Groq Sequential Performance](images/Llama-3.1-70b-versatile-(Sequential)-(Groq).png)
-**SGLang inference enging - 2xH100 sequential request**
-![SGlang Sequential Performance](images/Llama-3-70B-Instruct-FP8-(Sequential)-(H100-PCie-2-GPUs).png)
-**Groq - concurrent request**
-![Groq Concurrent Performance](images/Llama-3.1-70b-versatile-(Concurent)-(Groq).png)
-**SGLang inference enging - 2xH100 concurrent request**
-![SGlang Concurrent Performance](images/Llama-3-70B-Instruct-FP8-(Concurent)-(H100-PCie-2-GPUs).png)
+## Perfomance test Results
+<h3 align="center">Llama3-70B-FP8 (Sequential Request)</h3>
+<p align="center">
+  <div style="display: inline-block; text-align: center; width: 45%;">
+    <p><strong>SGlang</strong></p>
+    <img src="images/readme_image/sglang-llama3.1-70b-fp8-0.5-sequential.png" alt="SGlang-Llama-3-70B-Instruct-FP8-50%vRAM" width="100%">
+  </div>
+  <div style="display: inline-block; text-align: center; width: 45%;">
+    <p><strong>vLLM</strong></p>
+    <img src="images/readme_image/vllm-llama3.1-70b-fp8-0.5-sequential.png" alt="vLLM-Llama-3-70B-Instruct-FP8-50%vRAM" width="100%">
+  </div>
+</p>
+<p align="center"><em>SGLang shows slightly higher performance for sequential requests, achieving 38 tokens per second, compared to vLLM’s 35 tokens per second. This suggests that SGLang is more efficient in processing requests individually. Both engines demonstrate consistent performance across multiple requests, but SGLang has a clear edge in throughput.</em></p>
+
+<h3 align="center">Llama3-70B-FP8 (Concurrent Request)</h3>
+<p align="center">
+  <div style="display: inline-block; text-align: center; width: 45%;">
+    <p><strong>SGlang</strong></p>
+    <img src="images/readme_image/sglang-llama3.1-70b-fp8-0.5-concurrent.png" alt="SGlang-Llama-3-70B-Instruct-FP8-50%vRAM" width="100%">
+  </div>
+  <div style="display: inline-block; text-align: center; width: 45%;">
+    <p><strong>vLLM</strong></p>
+    <img src="images/readme_image/vllm-llama3.1-70b-fp8-0.5-concurrent.png" alt="vLLM-Llama-3-70B-Instruct-FP8-50%vRAM" width="100%">
+  </div>
+</p>
+<p align="center"><em>SGLang maintains a stable performance, consistently processing 30-31 tokens per second across all requests, demonstrating its efficiency and resilience under load. In contrast, vLLM shows a noticeable decline in performance as the number of requests increases, starting at 22 tokens per second and dropping to 16 tokens per second. This suggests that SGLang is better suited for handling high concurrency, providing more reliable throughput under heavy workloads.</em></p>
+
+<h3 align="center">Llama3.1-8B (Sequential Request)</h3>
+<p align="center">
+  <div style="display: inline-block; text-align: center; width: 45%;">
+    <p><strong>SGlang</strong></p>
+    <img src="images/readme_image/sglang-llama3.1-8B-instruct-0.25-sequnetial.png" alt="SGlang-Llama-3.1-8B-Instruct-FP8-25%vRAM" width="100%">
+  </div>
+  <div style="display: inline-block; text-align: center; width: 45%;">
+    <p><strong>vLLM</strong></p>
+    <img src="images/readme_image/vllm-llama3.1-8B-instruct-0.25-sequnetial.png" alt="vLLM-Llama-3.1-8B-Instruct-FP8-25%vRAM" width="100%">
+  </div>
+</p>
+<p align="center"><em>Both engines demonstrate high and consistent performance. SGLang processes requests at around 91 tokens per second, while vLLM handles them at 80 tokens per second. SGLang exhibits slightly better throughput, suggesting it can handle individual requests more efficiently compared to vLLM under these conditions.</em></p>
+
+<h3 align="center">Llama3.1-8B (Concurrent Request)</h3>
+<p align="center">
+  <div style="display: inline-block; text-align: center; width: 45%;">
+    <p><strong>SGlang</strong></p>
+    <img src="images/readme_image/sglang-llama3.1-8B-instruct-0.25-concurrent.png" alt="SGlang-Llama-3.1-8B-Instruct-FP8-25%vRAM" width="100%">
+  </div>
+  <div style="display: inline-block; text-align: center; width: 45%;">
+    <p><strong>vLLM</strong></p>
+    <img src="images/readme_image/vllm-llama3.1-8B-instruct-0.25-concurrent.png" alt="vLLM-Llama-3.1-8B-Instruct-FP8-25%vRAM" width="100%">
+  </div>
+</p>
+<p align="center"><em>SGLang maintains a steady performance, consistently processing around 75-78 tokens per second, showcasing its robust handling of high-concurrency workloads. In contrast, vLLM starts at 37 tokens per second but gradually decreases to around 35 tokens per second, highlighting a significant performance gap. This suggests that SGLang delivers nearly double the throughput compared to vLLM under concurrent request conditions, making it a more efficient choice for scenarios requiring high concurrency.</em></p>
+
 
 ## Contact
 
